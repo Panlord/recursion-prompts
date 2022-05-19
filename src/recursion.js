@@ -7,26 +7,96 @@
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
 var factorial = function(n) {
+  // Edge case
+  if (n < 0) {
+    return null;
+  }
+  // Base case
+  if (n === 0) {
+    return 1;
+  }
+  // Recursive case
+  if (n > 0) {
+    return (n * factorial(n - 1));
+  }
 };
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
 var sum = function(array) {
+  // Make copy of input array
+  var copied = array.slice();
+  // Base Case
+  if (copied.length === 0) {
+    return 0;
+  }
+  // Recursive case
+  if (copied.length) {
+    var popped = copied.pop();
+    return (popped + sum(copied));
+  }
 };
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
+  // Make copy of input array
+  var copied = array.slice();
+  // Base case
+  if (copied.length === 0) {
+    return 0;
+  }
+  // Recursive case
+  if (copied.length) {
+    var popped = copied.pop();
+    // Edge case - popped item is an array
+    if (Array.isArray(popped)) {
+      return (arraySum(popped) + arraySum(copied));
+    } else {
+      return (popped + arraySum(copied));
+    }
+  }
 };
 
 // 4. Check if a number is even.
 var isEven = function(n) {
+  // Base case 1
+  if (n === 0) {
+    return true;
+  }
+  // Base case 2
+  if (n === -1 || n === 1) {
+    return false;
+  }
+  // Recursive cases
+  else {
+    // If initial input was negative, add by 2 and recurse
+    if (n < 0) {
+      return isEven(n + 2);
+    // Else input was positive so subtract by 2 and recurse
+    } else {
+      return isEven(n - 2);
+    }
+  }
 };
 
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n) {
+  // Base case
+  if (n === 0) {
+    return 0;
+  }
+  // If initial input was negative, add 1 and recurse
+  if (n < 0) {
+    return ((n + 1) + sumBelow(n + 1));
+  // Else input was positive so subtract 1 and recurse
+  } else {
+    if (n > 0) {
+      return ((n - 1) + sumBelow(n - 1));
+    }
+  }
 };
 
 // 6. Get the integers within a range (x, y).
