@@ -102,6 +102,18 @@ var sumBelow = function(n) {
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+  // Base case: x === y or x +/- 1 would = y
+  if (((x + 1) === y) || ((x - 1) === y) || x === y) {
+    return [];
+  }
+  // Recursive cases
+  if (x < y) {
+    var array = [x + 1];
+    return (array.concat(range(x + 1, y)));
+  } else if (x > y) {
+    var array = [x - 1];
+    return (array.concat(range(x - 1, y)));
+  }
 };
 
 // 7. Compute the exponent of a number.
@@ -110,6 +122,19 @@ var range = function(x, y) {
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
+  // Base case: exponent = 0
+  if (exp === 0) {
+    return 1;
+  }
+  // Recursive cases
+  // If exponent > 0
+  if (exp > 0) {
+    return (base * exponent(base, exp - 1));
+  } else {
+    var output = ((1/base * exponent(base, exp + 1))).toFixed(5);
+    return parseFloat(output);
+  }
+
 };
 
 // 8. Determine if a number is a power of two.
@@ -117,14 +142,49 @@ var exponent = function(base, exp) {
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
+  // Base cases
+  if (n === 1) {
+    return true;
+  }
+  if (n < 1) {
+    return false;
+  }
+  // Recursive case
+  if (n) {
+    return powerOfTwo(n / 2);
+  }
 };
 
 // 9. Write a function that reverses a string.
 var reverse = function(string) {
+  // Base case: empty string
+  if (string.length === 0) {
+    return '';
+  }
+  // Recursive case
+  var output = string[string.length - 1];
+  return (output + reverse(string.substring(0, string.length - 1)));
 };
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
+  // Take care of edge cases by removing spaces and making it all lowercase
+  string = string.split(' ').join('').toLowerCase();
+  // Base cases
+  // If only 1 character in string, return true
+  if (string.length === 1) {
+    return true;
+  }
+  // If exactly 2 characters in string, return whether they match
+  if (string.length === 2) {
+    return (string[0] === string[1]);
+  }
+  // Recursive case
+  if (string[0] === string[string.length - 1]) {
+    return palindrome(string.substring(1, string.length - 1));
+  } else {
+    return false;
+  }
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
